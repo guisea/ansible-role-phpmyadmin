@@ -6,9 +6,9 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: Add default username and password for MySQL connection.
+- name: Add default username/password and authtype for MySQL connection.
   lineinfile: >
-    dest=/etc/phpMyAdmin/config.inc.php
+    dest=/etc/{{ ( ansible_os_family == 'RedHat' ) | ternary('phpMyAdmin','phpmyadmin') }}/config.inc.php
     state=present
     regexp="^.+\['{{ item.key }}'\].+$"
     line="$cfg['Servers'][$i]['{{ item.key }}'] = '{{ item.value }}';"
@@ -18,15 +18,8 @@
   - { key: port, value: "{{ phpmyadmin_mysql_port }}" }
   - { key: socket, value: "{{ phpmyadmin_mysql_socket }}" }
   - { key: connect_type, value: "{{ phpmyadmin_mysql_connect_type }}" }
-  
-- name: Add default username and password for MySQL connection.
-  lineinfile: >
-    dest=/etc/phpMyAdmin/config.inc.php
-    state=present
-    regexp="^.+\['{{ item.key }}'\].+$"
-    line="$cfg['Servers'][$i]['{{ item.key }}'] = '{{ item.value }}';"
-    insertbefore="^\?>"
-  with_items:
   - { key: user, value: "{{ phpmyadmin_mysql_user }}" }
-  - { key: password, value: "{{ phpmyadmin_mysql_password }}"}
-  when: phpmyadmin_auto_login
+  - { key: password, value: "{{ phpmyadmin_mysql_password }}" }
+  - { key: auth_type, value: "{{ (phpmyadmin_auto_login == true ) | ternary('config','cookie') }}" }
+  
+
