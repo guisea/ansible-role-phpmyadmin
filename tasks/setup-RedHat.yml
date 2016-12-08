@@ -2,3 +2,9 @@
 - name: Ensure PHPMyAdmin is installed.
   yum: name=phpmyadmin state=installed enablerepo=epel
   notify: restart apache
+  
+- name: Configure Apache Alias/Security
+  template:
+    src: "phpmyadmin-confd-{{ ansible_os_family }}.j2"
+    dest: /etc/httpd/conf.d/phpMyAdmin.conf
+  notify: restart apache
