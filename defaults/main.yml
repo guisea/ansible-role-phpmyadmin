@@ -5,3 +5,6 @@ phpmyadmin_mysql_socket: ""
 phpmyadmin_mysql_connect_type: tcp
 phpmyadmin_mysql_user: root
 phpmyadmin_mysql_password: "{{ mysql_root_password }}"
+phpmyadmin_auto_login: false
+phpmyadmin_alias: phpmyadmin
+phpmyadmin_allow_ranges: []
