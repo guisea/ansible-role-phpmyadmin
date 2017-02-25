@@ -14,6 +14,14 @@ phpMyAdmin is a simple interface for interacting with MySQL databases via a web 
 
 ## Role Variables
 
+    php_enablerepo: ""
+
+(RedHat/CentOS only) If you have enabled any additional repositories (might I suggest [geerlingguy.repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel) or [geerlingguy.repo-remi](https://github.com/geerlingguy/ansible-role-repo-remi)), those repositories can be listed under this variable (e.g. `remi-php70,epel`). This can be handy, as an example, if you want to install the latest version of PHP 7.0 with the latest version of phpMyAdmin, which is in the Remi repository.
+
+    phpmyadmin_config_file: /etc/phpmyadmin/config.inc.php
+
+The path to the phpMyAdmin config file.
+
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
     phpmyadmin_mysql_host: localhost
@@ -26,7 +34,7 @@ These variables define the connection method and hostname phpMyAdmin will use to
     phpmyadmin_mysql_user: root
     phpmyadmin_mysql_password: "{{ mysql_root_password }}"
 
-The username and password with which PHPMyAdmin will attempt to log into the MySQL server. The `mysql_root_password` should be set as part of the `geerlingguy.mysql` role, but you can change the user and password to another account entirely, and you most defintely *should*, especially if you're connecting to a non-development database server!
+The username and password with which phpMyAdmin will attempt to log into the MySQL server. The `mysql_root_password` should be set as part of the `geerlingguy.mysql` role, but you can change the user and password to another account entirely, and you most defintely *should*, especially if you're connecting to a non-development database server!
 
 ## Dependencies
 
@@ -58,4 +66,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
+This role was created in 2014 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).

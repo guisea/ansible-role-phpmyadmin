@@ -1,6 +1,6 @@
 ---
-- name: Ensure PHPMyAdmin is installed.
-  yum: name=phpmyadmin state=installed enablerepo=epel
+- name: Ensure phpMyAdmin is installed.
+  yum: name=phpmyadmin state=installed enablerepo={{ phpmyadmin_enablerepo }}
   notify: restart apache
   
 - name: Configure Apache Alias/Security
