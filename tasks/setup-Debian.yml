@@ -11,8 +11,8 @@
     line: "Include /etc/phpmyadmin/apache.conf"
     insertafter: "EOF"
   notify: restart apache
-
-- name: Configure Apache Alias/Security
+  
+- name: Configure Apache Alias and Allow Ranges
   template:
     src: "phpmyadmin-confd-{{ ansible_os_family }}.j2"
     dest: /etc/phpmyadmin/apache.conf

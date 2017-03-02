@@ -19,7 +19,5 @@
   - { key: socket, value: "{{ phpmyadmin_mysql_socket }}" }
   - { key: connect_type, value: "{{ phpmyadmin_mysql_connect_type }}" }
   - { key: user, value: "{{ phpmyadmin_mysql_user }}" }
-  - { key: password, value: "{{ phpmyadmin_mysql_password }}" }
+  - { key: password, value: "{{ phpmyadmin_mysql_password }}"}
   - { key: auth_type, value: "{{ (phpmyadmin_auto_login == true ) | ternary('config','cookie') }}" }
-  
-

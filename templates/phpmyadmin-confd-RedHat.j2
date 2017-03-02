@@ -16,6 +16,12 @@ Alias /{{ phpmyadmin_alias }} /usr/share/phpMyAdmin
      <RequireAny>
        Require ip 127.0.0.1
        Require ip ::1
+   {% if not phpmyadmin_allow_ranges is none %}
+     {% for item in phpmyadmin_allow_ranges %}
+   # Allow {{ item.name }}
+      Require ip {{ item.addr }}
+     {% endfor %}
+   {% endif %}
      </RequireAny>
    </IfModule>
    <IfModule !mod_authz_core.c>
@@ -23,14 +29,13 @@ Alias /{{ phpmyadmin_alias }} /usr/share/phpMyAdmin
      Order Deny,Allow
      Deny from All
      Allow from 127.0.0.1
-   #  Allow from ::1
+     Allow from ::1
    {% if not phpmyadmin_allow_ranges is none %}
-     {% for item in phpmyadmin_allow_ranges %}  
+     {% for item in phpmyadmin_allow_ranges %}
    # Allow {{ item.name }}
      Allow from {{ item.addr }}
      {% endfor %}
    {% endif %}
-   
    </IfModule>
 </Directory>
 
@@ -40,6 +45,12 @@ Alias /{{ phpmyadmin_alias }} /usr/share/phpMyAdmin
      <RequireAny>
        Require ip 127.0.0.1
        Require ip ::1
+   {% if not phpmyadmin_allow_ranges is none %}
+     {% for item in phpmyadmin_allow_ranges %}
+       # Allow {{ item.name }}
+       Require ip {{ item.addr }}
+     {% endfor %}
+   {% endif %}
      </RequireAny>
    </IfModule>
    <IfModule !mod_authz_core.c>
@@ -48,6 +59,12 @@ Alias /{{ phpmyadmin_alias }} /usr/share/phpMyAdmin
      Deny from All
      Allow from 127.0.0.1
      Allow from ::1
+   {% if not phpmyadmin_allow_ranges is none %}
+     {% for item in phpmyadmin_allow_ranges %}
+   # Allow {{ item.name }}
+     Allow from {{ item.addr }}
+     {% endfor %}
+   {% endif %}
    </IfModule>
 </Directory>
 
@@ -71,4 +88,3 @@ Alias /{{ phpmyadmin_alias }} /usr/share/phpMyAdmin
     Deny from All
     Allow from None
 </Directory>
-
