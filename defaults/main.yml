@@ -20,3 +20,13 @@ phpmyadmin_auto_login: false
 # e.g If you set this to "pma" phpMyAdmin is available at http://host.or.ip/pma
 # By default http://host.or.ip/phpmyadmin
 phpmyadmin_alias: phpmyadmin
+
+# Set the phpmyadmin_allow_ranges variable to allow ranges/ip's outside of localhost
+# Example:
+# phpmyadmin_allow_ranges:
+#   - name: MyNetwork
+#     addr: 172.16.6.0/24
+#   - name: MyOtherNetwork
+#     addr: 172.20.5.0/24
+# Remember: Remove the [] if you are adding allowed ranges 
+phpmyadmin_allow_ranges: []
