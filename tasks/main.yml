@@ -1,4 +1,13 @@
 ---
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define phpmyadmin_config_file.
+  set_fact:
+    phpmyadmin_config_file: "{{ __phpmyadmin_config_file }}"
+  when: phpmyadmin_config_file is not defined
+
 # Setup/install tasks.
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
@@ -6,9 +15,9 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: Add default username/password and authtype for MySQL connection.
+- name: Add default username and password for MySQL connection.
   lineinfile: >
-    dest=/etc/{{ ( ansible_os_family == 'RedHat' ) | ternary('phpMyAdmin','phpmyadmin') }}/config.inc.php
+    dest={{ phpmyadmin_config_file }}
     state=present
     regexp="^.+\['{{ item.key }}'\].+$"
     line="$cfg['Servers'][$i]['{{ item.key }}'] = '{{ item.value }}';"
@@ -21,3 +30,16 @@
   - { key: user, value: "{{ phpmyadmin_mysql_user }}" }
   - { key: password, value: "{{ phpmyadmin_mysql_password }}"}
   - { key: auth_type, value: "{{ (phpmyadmin_auto_login == true ) | ternary('config','cookie') }}" }
+  
+- name: Add Server Configuration items
+  lineinfile:
+    dest: "{{ phpmyadmin_config_file }}"
+    state: present
+    regexp: "^.+\['{{ item.key }}'\].+$"
+    line: "$cfg['{{ item.key }}'] = '{{ item.value }}'"
+    insertbefore: "^\?>"
+  with_items:
+  - key: GridEditing
+    value: "{{ phpmyadmin_grid_editing }}"
+  - key: LoginCookieValidity
+    value: "{{ phpmyadmin_cookie_validity }}"
