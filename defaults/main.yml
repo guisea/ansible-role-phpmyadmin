@@ -30,3 +30,12 @@ phpmyadmin_alias: phpmyadmin
 #     addr: 172.20.5.0/24
 # Remember: Remove the [] if you are adding allowed ranges 
 phpmyadmin_allow_ranges: []
+
+# Set Grid Editing availablity for phpMyAdmin
+# Values: enabled or disabled
+phpmyadmin_grid_editing: disabled
+
+# Set phpMyAdmin Cookie Validity
+# This value is in seconds so 7200 = 2 hours
+# Note: This also relies on session_gc_maxlifetime php setting being equal or higher than this number.
+phpmyadmin_cookie_validity: 7200
