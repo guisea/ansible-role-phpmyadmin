@@ -39,7 +39,7 @@
     line: "$cfg['{{ item.key }}'] = '{{ item.value }}'"
     insertbefore: "^\?>"
   with_items:
-  - key: GridEditing
-    value: "{{ phpmyadmin_grid_editing }}"
-  - key: LoginCookieValidity
-    value: "{{ phpmyadmin_cookie_validity }}"
+    - key: GridEditing
+      value: "{{ phpmyadmin_grid_editing }}"
+    - key: LoginCookieValidity
+      value: "{{ phpmyadmin_cookie_validity }}"
